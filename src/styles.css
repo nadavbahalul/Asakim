@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: auto;
+  background-color: #7ea1fb;
+}
+body {
+  margin: 0;
+}
+* {
+  direction: rtl;
+  font-family: "Alef", sans-serif;
+}

@@ -1,0 +1,32 @@
+.create-product-form {
+  width: 40%;
+  margin: auto;
+  margin-top: 2rem;
+}
+mat-form-field,
+textarea {
+  width: 100%;
+  text-align: right;
+}
+input[type="file"] {
+  visibility: hidden;
+}
+.image-preview {
+  height: 8rem;
+  margin: 1rem 0;
+}
+mat-spinner {
+  margin: auto;
+}
+.image-preview img {
+  height: 100%;
+}
+.save-button {
+  margin-top: 3rem;
+}
+
+@media (max-width: 400px) {
+  .create-product-form {
+    width: 70%;
+  }
+}

@@ -1,0 +1,84 @@
+<mat-spinner *ngIf="isProductsLoading && isStoreDataLoading"></mat-spinner>
+<div class="main" *ngIf="!isProductsLoading || !isStoreDataLoading">
+  <div class="store-data">
+    <div class="store-info">
+      <h1 class="store-name">{{ store?.name }}</h1>
+      <p class="store-description">{{ store?.description }}</p>
+      <p>סוג העסק: {{ store?.category }}</p>
+      <p>איזור משלוחים: {{ store?.deliveryArea }}</p>
+    </div>
+    <div class="store-image">
+      <img
+        [src]="store?.imagePath"
+        onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+        alt=""
+      />
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <h2 class="choose-products-header">המוצרים בחנות</h2>
+    <button
+      *ngIf="isStoreOwner"
+      class="add-product-btn"
+      mat-raised-button
+      routerLink="/product"
+    >
+      הוספת מוצר חדש
+    </button>
+    <input
+      *ngIf="false"
+      matInput
+      type="text"
+      placeholder="הכניסו את מיקומכם..."
+    />
+  </div>
+  <div *ngIf="selectedCategory">
+    {{ selectedCategory }} > {{ selectedSubCategory }}
+  </div>
+  <mat-grid-list
+    cols="{{ mediumMobileQuery.matches ? 2 : 4 }}"
+    rowHeight="{{ smallMobileQuery.matches ? '1:1.8' : '1:1.5' }}"
+  >
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card class="product-card">
+        <div class="product-data-container">
+          <img
+            class="product-image"
+            [src]="product.imagePath"
+            onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+            alt=""
+          />
+          <p class="product-name">{{ product.name }}</p>
+          <p class="product-price">₪{{ product.price }}</p>
+          <p class="product-content">{{ product.content }}</p>
+          <div>
+            <button
+              class="dec-amount-btn"
+              (click)="onChangeAmount(product, -1)"
+            >
+              -
+            </button>
+            <label class="amount">{{ getAmount(product._id) }}</label>
+            <button class="inc-amount-btn" (click)="onChangeAmount(product, 1)">
+              +
+            </button>
+            <label class="measureUnit">{{
+              getMeasureUnit(product.measureUnit)
+            }}</label>
+            <!-- <button class="product-info-btn">i</button> -->
+            <div class="product-actions">
+              <span class="material-icons-outlined info-btn">info</span>
+              <span
+                [routerLink]="'/product/' + product._id"
+                *ngIf="isStoreOwner"
+                class="material-icons edit-btn"
+                >edit</span
+              >
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

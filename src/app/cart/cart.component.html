@@ -1,0 +1,51 @@
+<span
+  class="material-icons cart-icon"
+  [matBadge]="itemsInCart.length"
+  matBadgeColor="warn"
+  matBadgePosition="before"
+  [matMenuTriggerFor]="cartOpen"
+>
+  shopping_cart
+</span>
+<div>
+  <mat-menu #cartOpen="matMenu" (click)="onCartClick($event)">
+    <div class="cart-header" (click)="onCartClick($event)">
+      עגלת הקניות שלך:
+    </div>
+    <div class="cart-items" (click)="onCartClick($event)">
+      <div *ngFor="let item of itemsInCart">
+        <img
+          class="product-img"
+          [src]="item.product?.imagePath"
+          onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+          alt=""
+        />
+        <div class="product-info">
+          <div class="product-name">{{ item.product?.name }}</div>
+          <div class="amount">
+            כמות: {{ item.amount }}
+            {{ getMeasureUnitText(item.product?.measureUnit) }}
+          </div>
+          <div class="product-price">מחיר: ₪{{ item.product?.price }}</div>
+          <div class="product-total-price">
+            סה"כ: ₪{{ calcProductPrice(item.product?.price, item.amount) }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="cart-divider"></mat-divider>
+    <div class="cart-summary">
+      <button
+        class="pay-btn"
+        [routerLink]="['/order']"
+        mat-button
+        [disabled]="!itemsInCart.length"
+      >
+        סיימתי, אפשר להזמין
+      </button>
+      <div class="total-price" (click)="onCartClick($event)">
+        סה"כ: ₪{{ totalPrice }}
+      </div>
+    </div>
+  </mat-menu>
+</div>

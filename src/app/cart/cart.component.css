@@ -1,0 +1,41 @@
+.cart-icon {
+  cursor: pointer;
+  vertical-align: middle;
+}
+.cart-items {
+  height: 300px;
+  width: 270px;
+  overflow-y: auto;
+}
+.cart-header {
+  font-size: 20px;
+  font-weight: bold;
+}
+.product-img {
+  width: 40%;
+  border-radius: 20%;
+}
+.product-info {
+  display: inline-block;
+  margin-right: 10%;
+}
+.product-name {
+  font-weight: bold;
+}
+.cart-summary {
+  height: 30px;
+}
+.cart-divider {
+  margin: auto;
+}
+.total-price {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+  height: 100%;
+  width: 35%;
+}
+.pay-btn {
+  background-color: #7ea1fb;
+  color: white;
+}

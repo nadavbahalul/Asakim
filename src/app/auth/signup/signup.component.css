@@ -1,0 +1,12 @@
+.signup-form {
+  width: 20%;
+  margin: 2rem auto 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}

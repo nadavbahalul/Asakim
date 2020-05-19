@@ -1,0 +1,87 @@
+<mat-card class="signup-form">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        name="firstName"
+        ngModel
+        placeholder="שם פרטי"
+        #firstName="ngModel"
+        required
+      />
+      <mat-error *ngIf="firstName.invalid">נא להכניס שם פרטי</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="lastName"
+        ngModel
+        placeholder="שם משפחה"
+        #lastName="ngModel"
+        required
+      />
+      <mat-error *ngIf="lastName.invalid">נא להכניס שם משפחה</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="phone"
+        ngModel
+        placeholder="מספר פלאפון"
+        #phone="ngModel"
+        pattern="^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{7}$"
+        required
+      />
+      <mat-error *ngIf="phone.invalid">נא להכניס מספר פלאפון</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="email"
+        ngModel
+        type="email"
+        placeholder="אימייל"
+        #email="ngModel"
+        required
+        email
+      />
+      <mat-error *ngIf="email.invalid">נא להכניס מייל תקין</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="password"
+        ngModel
+        type="password"
+        placeholder="בחר סיסמא"
+        #password="ngModel"
+        required
+      />
+      <mat-error *ngIf="password.invalid">נא לבחור סיסמה</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="confirmPassword"
+        ngModel
+        type="password"
+        placeholder="אימות סיסמא"
+        #confirmPassword="ngModel"
+        required
+      />
+      <mat-error *ngIf="confirmPassword.invalid"
+        >נא להכניס שוב את הסיסמא שבחרתם</mat-error
+      >
+    </mat-form-field>
+    <button
+      [disabled]="!signupForm.valid"
+      *ngIf="!isLoading"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      צור משתמש
+    </button>
+  </form>
+</mat-card>

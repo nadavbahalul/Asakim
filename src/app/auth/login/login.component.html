@@ -1,0 +1,34 @@
+<mat-card class="login-form">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        email
+        name="email"
+        ngModel
+        placeholder="אימייל"
+        #email="ngModel"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="password"
+        ngModel
+        type="password"
+        placeholder="סיסמא"
+        #password="ngModel"
+        required
+      />
+    </mat-form-field>
+    <button *ngIf="!isLoading" mat-raised-button color="primary" type="submit">
+      התחבר
+    </button>
+    <a [href]="googleLoginUrl">
+      Login with google
+    </a>
+  </form>
+</mat-card>

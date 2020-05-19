@@ -1,0 +1,70 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card class="create-product-form" *ngIf="!isLoading">
+  <h1>הוספת חנות חדשה</h1>
+  <form [formGroup]="form" (submit)="onSaveStore()">
+    <mat-form-field>
+      <mat-label>שם החנות</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="שם החנות"
+        formControlName="name"
+      />
+      <mat-error *ngIf="this.form.get('name').invalid"
+        >נא הכנס שם לחנות</mat-error
+      >
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        בחר תמונה
+      </button>
+      <input type="file" #filePicker (change)="onImageUpload($event)" />
+    </div>
+    <div
+      class="image-preview"
+      *ngIf="
+        imagePreview !== '' && imagePreview && this.form.get('image').valid
+      "
+    >
+      <img
+        [src]="imagePreview"
+        onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+        alt=""
+      />
+    </div>
+    <mat-form-field>
+      <mat-label>סוג חנות</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>תיאור החנות</mat-label>
+      <textarea matInput rows="6" formControlName="content"> </textarea>
+      <mat-error *ngIf="this.form.get('content').invalid"
+        >יש להכניס תיאור לחנות</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="איזור משלוחים"
+        formControlName="deliveryArea"
+      />
+      <mat-error *ngIf="this.form.get('deliveryArea').invalid"
+        >יש להכניס איזור משלוחים</mat-error
+      >
+    </mat-form-field>
+    <button
+      class="save-button"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (submit)="onSaveStore()"
+    >
+      שמור
+    </button>
+  </form>
+</mat-card>

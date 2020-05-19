@@ -1,0 +1,62 @@
+<mat-toolbar>
+  <span
+    ><img
+      class="site-logo"
+      src="../../assets/AsakimIL.png"
+      (click)="onLogoClick()"
+  /></span>
+  <span class="spacer"></span>
+  <div
+    class="categories-mobile"
+    *ngIf="mobileQuery.matches && showCategories"
+    dir="rtl"
+  >
+    <mat-form-field class="categories-mobile">
+      <mat-select placeholder="קטגוריה">
+        <mat-option
+          *ngFor="let category of categories"
+          [value]="category"
+          (click)="onCatClick(category)"
+        >
+          {{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="categories-menu" *ngIf="!mobileQuery.matches && showCategories">
+    <div
+      class="categories-menu-item"
+      dir="rtl"
+      *ngFor="let category of categories"
+    >
+      <a mat-button (click)="onCatClick(category)">
+        {{ category }}
+      </a>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <mat-menu #accountMenu="matMenu">
+    <button *ngIf="!isAuthorize" mat-menu-item routerLink="/auth/login">
+      התחברות
+    </button>
+    <button *ngIf="!isAuthorize" mat-menu-item routerLink="/auth/signup">
+      הרשמה
+    </button>
+    <button
+      *ngIf="isAuthorize"
+      mat-menu-item
+      routerLink="/"
+      (click)="onLogout()"
+    >
+      התנתקות
+    </button>
+  </mat-menu>
+  <div dir="rtl" class="account-menu">
+    <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+  <div dir="rtl">
+    <cart></cart>
+  </div>
+</mat-toolbar>

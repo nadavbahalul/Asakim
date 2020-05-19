@@ -1,0 +1,37 @@
+<div class="main">
+  <h1 class="choose-store-header">החנויות שלנו</h1>
+  <p *ngIf="isAuth">החנות שלך לא מופיעה פה?</p>
+  <button
+    *ngIf="isAuth"
+    [routerLink]="['/newStore']"
+    class="add-store-btn"
+    mat-raised-button
+  >
+    הוספת חנות
+  </button>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <div class="stores-view" *ngIf="!isLoading">
+    <mat-grid-list cols="{{ mobileQuery.matches ? 2 : 4 }}" rowHeight="1:1.5">
+      <mat-grid-tile *ngFor="let store of filteredStores">
+        <mat-card
+          class="store-card"
+          [routerLink]="['/store']"
+          [queryParams]="{ id: store._id }"
+        >
+          <div class="store-data-container">
+            <img
+              class="store-image"
+              [src]="store.imagePath"
+              onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+              alt=""
+            />
+            <p class="store-name">{{ store.name }}</p>
+            <p class="store-content">{{ store.description }}</p>
+            <p class="store-content">{{ store.deliveryArea }}</p>
+          </div></mat-card
+        >
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

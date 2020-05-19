@@ -1,0 +1,147 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card class="order" *ngIf="!isLoading">
+  <h1 class="order-summary-header">סיכום ההזמנה שלך:</h1>
+  <mat-divider></mat-divider>
+  <mat-grid-list
+    cols="2"
+    rowHeight="{{ mobileQuery.matches ? '1:1.2' : '1.5:1' }}"
+  >
+    <div class="product" *ngFor="let item of itemsInCart">
+      <mat-grid-tile>
+        <div class="product-info">
+          <div class="product-name">
+            <h2>{{ item.product.name }}</h2>
+          </div>
+          <div>{{ item.product.content }}</div>
+          <div class="amount">
+            כמות: {{ item.amount }}
+            {{ getMeasureUnitText(item.product.measureUnit) }}
+          </div>
+          <div class="product-price">מחיר: ₪{{ item.product.price }}</div>
+          <div class="product-total-price">
+            סה"כ: ₪{{ calcProductPrice(item.product.price, item.amount) }}
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="product-img">
+          <img
+            [src]="item.product.imagePath"
+            onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+            alt=""
+          />
+        </div>
+      </mat-grid-tile>
+    </div>
+  </mat-grid-list>
+  <div>
+    <div>
+      <mat-divider></mat-divider>
+      <h2 class="total-price">סה"כ: ₪{{ totalPrice }}</h2>
+      <mat-divider></mat-divider>
+    </div>
+    <form (submit)="onOrder(orderForm)" #orderForm="ngForm" class="order-form">
+      <h1 class="order-form-header">לביצוע הזמנה הזינו את פרטיכם:</h1>
+      <mat-grid-list
+        cols="{{ mobileQuery.matches ? '1' : '2' }}"
+        rowHeight="4:1"
+      >
+        <mat-grid-tile>
+          <mat-form-field>
+            <input
+              matInput
+              name="firstName"
+              ngModel
+              type="text"
+              placeholder="שם פרטי"
+              #firstName="ngModel"
+              required
+            />
+            <mat-error *ngIf="firstName.invalid">בבקשה להזין שם פרטי</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field class="last-name">
+            <input
+              matInput
+              name="lastName"
+              ngModel
+              type="text"
+              placeholder="שם משפחה"
+              #lastName="ngModel"
+              required
+            />
+            <mat-error *ngIf="lastName.invalid">בבקשה להזין שם משפחה</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input
+              matInput
+              name="email"
+              ngModel
+              type="email"
+              placeholder="נא להכניס כתובת מייל"
+              #email="ngModel"
+              required
+              email
+            />
+            <mat-error *ngIf="email.invalid">בבקשה להזין מייל תקין</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input
+              matInput
+              name="phone"
+              ngModel
+              type="text"
+              placeholder="מספר פלאפון"
+              #phone="ngModel"
+              pattern="^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{7}$"
+              required
+            />
+            <mat-error *ngIf="phone.invalid"
+              >בבקשה להזין מספר טלפון תקין</mat-error
+            >
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input
+              matInput
+              name="adress"
+              ngModel
+              type="text"
+              placeholder="כתובת להזמנה"
+              #adress="ngModel"
+              required
+            />
+            <mat-error *ngIf="adress.invalid"
+              >בבקשה להזין כתובת להזמנה</mat-error
+            >
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div>
+        <button
+          class="order-btn"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          סיימתי, בוא נזמין
+        </button>
+        <button
+          class="back-to-store"
+          color="primary"
+          mat-raised-button
+          [routerLink]="['/store']"
+          [queryParams]="{ id: cartStoreId }"
+        >
+          חזור לחנות
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-card>

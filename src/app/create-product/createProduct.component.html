@@ -1,0 +1,100 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card class="create-product-form" *ngIf="!isLoading">
+  <h1 *ngIf="mode === 'edit'">עריכת מוצר</h1>
+  <h1 *ngIf="mode === 'create'">הוספת מוצר חדש</h1>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>שם המוצר</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="שם המוצר"
+        formControlName="name"
+      />
+      <mat-error *ngIf="this.form.get('name').invalid"
+        >נא הכנס שם למוצר</mat-error
+      >
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        בחר תמונה
+      </button>
+      <input type="file" #filePicker (change)="onImageUpload($event)" />
+    </div>
+    <div
+      class="image-preview"
+      *ngIf="
+        imagePreview !== '' && imagePreview && this.form.get('image').valid
+      "
+    >
+      <img
+        [src]="imagePreview"
+        onerror="this.onerror=null; this.src='../../assets/no-image-found.png'"
+        alt=""
+      />
+    </div>
+    <mat-form-field>
+      <mat-label>תיאור המוצר</mat-label>
+      <textarea
+        matInput
+        rows="6"
+        placeholder="תאר בקצרה את המוצר"
+        formControlName="content"
+      >
+      </textarea>
+      <mat-error *ngIf="this.form.get('content').invalid"
+        >נא הכנס תיאור למוצר</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        placeholder="מחיר (שקלים)"
+        formControlName="price"
+      />
+      <mat-error *ngIf="this.form.get('price').invalid"
+        >יש להכניס מחיר למוצר</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>המחיר הוא ל:</mat-label>
+      <mat-select formControlName="measureUnit">
+        <mat-option
+          *ngFor="let measureUnit of measureUnits"
+          [value]="measureUnit.value"
+        >
+          {{ measureUnit.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      *ngIf="mode === 'edit'"
+      class="next-product-btn"
+      mat-raised-button
+      color="primary"
+      (click)="onSaveProduct(true)"
+    >
+      שמור
+    </button>
+    <button
+      *ngIf="mode === 'create'"
+      class="next-product-btn"
+      mat-raised-button
+      color="primary"
+      (click)="onSaveProduct(false)"
+    >
+      הוספה ומעבר למוצר הבא
+    </button>
+    <button
+      *ngIf="mode === 'create'"
+      class="back-to-store-btn"
+      mat-raised-button
+      color="primary"
+      (click)="onSaveProduct(true)"
+    >
+      הוספה וחזרה לחנות
+    </button>
+  </form>
+</mat-card>
