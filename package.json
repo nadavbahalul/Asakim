@@ -22,7 +22,7 @@
     "@angular/platform-browser": "~9.0.6",
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
-    "aws-sdk": "^2.654.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "browser-image-compression": "^1.0.8",
